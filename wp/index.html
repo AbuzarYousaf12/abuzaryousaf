@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Abuzar Yousaf | WordPress & Shopify Developer</title>
+
+<!-- Fonts: Syne (Bold/Display) & Inter (Clean/Readable) & IBM Plex Mono (Labels) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- GSAP & Lenis for World-Class Animations and Smooth Scroll -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+<!-- Phosphor Icons -->
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+
+<style>
+  :root {
+    --bg-dark: #050505;
+    --bg-light: #111111;
+    --text-main: #F4F4F5;
+    --text-dim: #A1A1AA;
+    --accent: #FF4500; /* Electric Orange */
+    --border: rgba(255, 255, 255, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html, body { 
+    background-color: var(--bg-dark); 
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* --- CUSTOM CURSOR (DESKTOP ONLY) --- */
+  @media (pointer: fine) {
+    html.cursor-active { cursor: none; }
+    .cursor { position: fixed; top: 0; left: 0; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 100000; transition: width 0.3s, height 0.3s, background 0.3s; }
+    .cursor-follower { position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(255, 69, 0, 0.5); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 99999; transition: opacity 0.3s, transform 0.1s ease-out; }
+    body.hovering .cursor { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(2px); border: 1px solid var(--text-main); }
+    body.hovering .cursor-follower { opacity: 0; }
+  }
+  @media (pointer: coarse) {
+    .cursor, .cursor-follower { display: none !important; }
+  }
+
+  /* --- LOADER --- */
+  .loader {
+    position: fixed; inset: 0; background: var(--bg-dark); z-index: 999999;
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+  }
+  .loader h1 { font-family: 'Syne'; font-size: clamp(1.5rem, 4vw, 3rem); color: var(--text-main); overflow: hidden; text-align: center; }
+  .loader-text span { display: inline-block; transform: translateY(100%); }
+  .loader-progress { width: 200px; height: 2px; background: var(--border); margin-top: 20px; position: relative; overflow: hidden; }
+  .loader-bar { position: absolute; top: 0; left: 0; height: 100%; width: 0%; background: var(--accent); }
+
+  /* --- TYPOGRAPHY --- */
+  h1, h2, h3, h4 { font-family: 'Syne', sans-serif; text-transform: uppercase; line-height: 1.1; }
+  a { text-decoration: none; color: inherit; display: inline-block; cursor: pointer; }
+  ul { list-style: none; }
+
+  /* --- NAVIGATION --- */
+  .navbar {
+    position: fixed; top: 0; left: 0; width: 100%; padding: 20px 4vw; z-index: 99999;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'Syne'; font-weight: 900; font-size: 1.5rem; color: #fff; letter-spacing: -1px; }
+  .logo span { color: var(--accent); }
+  
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-links { display: flex; gap: 3vw; align-items: center; }
+  .nav-links a { font-size: 0.85rem; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; position: relative; color: #fff; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 2px; background: var(--accent); transition: width 0.4s; }
+  .nav-links a:hover::after { width: 100%; }
+  
+  .hire-btn { font-family:'Syne'; font-size:0.85rem; border:1px solid #fff; padding:10px 24px; border-radius:50px; transition: 0.3s; }
+  .hire-btn:hover { background: var(--text-main); color: var(--bg-dark); }
+  
+  .mobile-contact-btn { display: none; }
+  .menu-btn { display: none; font-size: 2rem; color: #fff; cursor: pointer; }
+
+  /* --- HERO SECTION --- */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 140px 4vw 60px; position: relative; overflow: hidden; }
+  .hero-subtitle { font-size: 0.9rem; color: var(--accent); letter-spacing: 2px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; overflow: hidden; }
+  .hero-title { font-size: clamp(1.7rem, 9vw, 8rem); font-weight: 900; letter-spacing: -0.01em; color: var(--text-main); line-height: 1.08; margin-bottom: 30px; overflow-wrap: break-word; word-break: normal; }
+  .hero-title .line { overflow: hidden; }
+  .hero-title span { display: inline-block; }
+  .hero-desc { max-width: 700px; font-size: clamp(1rem, 2.5vw, 1.1rem); color: var(--text-dim); font-weight: 300; line-height: 1.6; margin-bottom: 40px; }
+  
+  .hero-stats { display: flex; gap: 4vw; border-top: 1px solid var(--border); padding-top: 25px; flex-wrap: wrap; }
+  .h-stat h4 { font-size: clamp(1.5rem, 4vw, 2rem); color: var(--text-main); }
+  .h-stat p { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; }
+
+  /* --- MARQUEE --- */
+  .marquee-wrapper { width: 100%; overflow: hidden; background: var(--accent); padding: 15px 0; transform: rotate(-2deg) scale(1.05); margin: 60px 0; }
+  .marquee { display: flex; white-space: nowrap; }
+  .marquee h2 { font-size: clamp(1.2rem, 3vw, 3rem); color: var(--bg-dark); font-weight: 900; padding: 0 20px; display: flex; align-items: center; gap: 15px; }
+
+  /* --- LAYOUT UTILS --- */
+  .section { padding: 100px 4vw; border-bottom: 1px solid var(--border); }
+  
+  .sec-header { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 60px; }
+  .sec-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; font-weight: 500; color: var(--accent); letter-spacing: 2px; margin-bottom: 15px; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+  .sec-tag::before { content: ''; width: 30px; height: 1px; background: var(--accent); }
+  .sec-header h2 { font-size: clamp(1.3rem, 6.5vw, 4.5rem); font-weight: 900; line-height: 1.15; max-width: 900px; width: 100%; overflow-wrap: break-word; word-break: break-word; }
+
+  /* --- ABOUT / SKILLS --- */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .about-text { font-size: clamp(1.1rem, 2vw, 1.25rem); font-weight: 300; line-height: 1.6; color: var(--text-main); }
+  .about-text span { color: var(--text-dim); }
+  .about-img img { width: 100%; border-radius: 20px; filter: grayscale(100%) contrast(1.1); }
+  
+  .skills-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .skill-pill { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 10px 20px; border-radius: 100px; font-size: 0.85rem; transition: 0.3s; }
+  .skill-pill:hover { background: var(--text-main); color: var(--bg-dark); }
+
+  /* --- SERVICES --- */
+  .service-list { display: flex; flex-direction: column; }
+  .srv-item { border-top: 1px solid var(--border); padding: 30px 0; display: grid; grid-template-columns: 0.5fr 2.5fr 1.5fr; align-items: center; transition: 0.4s; position: relative; overflow: hidden; }
+  .srv-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-light); transform: scaleY(0); transform-origin: bottom; transition: transform 0.5s; z-index: -1; }
+  .srv-item:hover::before { transform: scaleY(1); transform-origin: top; }
+  .srv-item:hover { padding-left: 20px; padding-right: 20px; border-color: transparent; }
+  .srv-num { font-family: 'IBM Plex Mono', monospace; color: var(--text-dim); font-size: 1.1rem; }
+  .srv-title { font-size: clamp(1.3rem, 3vw, 2.5rem); font-weight: 600; overflow-wrap: break-word; word-break: break-word; min-width: 0; }
+  .srv-desc { font-size: 0.95rem; color: var(--text-dim); font-weight: 300; line-height: 1.5; }
+  .srv-item:hover .srv-num, .srv-item:hover .srv-title { color: var(--accent); }
+
+  /* --- EXPERIENCE --- */
+  .exp-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .exp-card { display: grid; grid-template-columns: 1fr 3fr; gap: 30px; padding: 40px 0; border-top: 1px solid var(--border); }
+  .exp-meta { font-family: 'Syne'; }
+  .exp-date { font-family: 'IBM Plex Mono', monospace; color: var(--accent); font-size: 0.85rem; letter-spacing: 0.02em; margin-bottom: 10px; }
+  .exp-company { font-size: clamp(1.8rem, 4vw, 2.2rem); font-weight: 800; display: flex; align-items: center; gap: 15px; flex-wrap: wrap; overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
+  .exp-details h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); margin-bottom: 15px; color: var(--text-main); }
+  .exp-details ul { margin-left: 20px; color: var(--text-dim); }
+  .exp-details li { margin-bottom: 10px; font-size: 1rem; font-weight: 300; }
+
+  /* --- PORTFOLIO SYSTEM --- */
+  .filter-wrap { display: flex; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+  .filter-btn { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 10px 24px; border-radius: 100px; font-family: 'Syne'; font-size: 0.8rem; transition: 0.3s; }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--bg-dark); }
+  
+  .port-panel { display: none; }
+  .port-panel.active { display: block; animation: fadeInUp 0.6s ease forwards; }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Grids */
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+  
+  /* Cards */
+  .brand-card { 
+    background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; 
+    padding: 35px 20px; display: flex; flex-direction: column; gap: 20px; 
+    align-items: center; justify-content: center; text-align: center; transition: 0.4s; 
+    overflow: hidden;
+  }
+  .brand-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+  .bc-head { width: 100%; max-width: 100%; }
+  .bc-head h3 { font-size: 1.4rem; font-weight: 800; overflow-wrap: break-word; word-break: break-word; max-width: 100%; }
+  .bc-socials { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .bc-socials a {
+    width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.05rem; color: #fff; flex: none;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease, filter 0.3s ease;
+  }
+  .bc-socials a:hover { transform: translateY(-4px) scale(1.1); box-shadow: 0 8px 18px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.3); filter: brightness(1.08); }
+  .bg-ig { background: linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7); }
+  .bg-fb { background: linear-gradient(135deg, #4d94ff, #1877F2); }
+  .bg-yt { background: linear-gradient(135deg, #ff4d4d, #FF0000); }
+  .bg-tt { background: linear-gradient(135deg, #2a2a2a, #000000); border: 1px solid rgba(255,255,255,0.12); }
+  .bg-li { background: linear-gradient(135deg, #2d8fe0, #0A66C2); }
+  
+  .web-card { 
+    background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; 
+    padding: 25px; display: flex; align-items: center; justify-content: space-between; transition: 0.4s; 
+    overflow: hidden; gap: 15px;
+  }
+  .web-card:hover { border-color: var(--accent); }
+  .web-card h3 { font-size: 1.2rem; overflow-wrap: break-word; word-break: break-word; min-width: 0; flex: 1; }
+  .arrow-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--text-main); color: var(--bg-dark); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+  .web-card:hover .arrow-btn { background: var(--accent); transform: rotate(45deg); }
+
+  .media-card { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4/5; background: #111; border: 1px solid var(--border); }
+  .media-card img, .media-card video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+  .media-card:hover img, .media-card:hover video { transform: scale(1.05); }
+  .media-card.video { aspect-ratio: 9/16; }
+  .media-card.logo-box { aspect-ratio: 1/1; background: #fff; padding: 20px; }
+  .media-card.logo-box img { object-fit: contain; filter: grayscale(100%); transition: 0.4s; }
+  .media-card.logo-box:hover img { filter: grayscale(0%); transform: scale(1.05); }
+
+  .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .media-card.banner { aspect-ratio: 16/9; }
+
+  /* --- FOOTER --- */
+  .footer { padding: 80px 4vw 40px; text-align: center; border-top: 1px solid var(--border); overflow: hidden; }
+  .huge-text { font-family: 'Syne'; font-size: clamp(2.6rem, 12vw, 15rem); font-weight: 900; line-height: 0.8; color: var(--bg-light); -webkit-text-stroke: 1px var(--border); transition: 0.4s; margin-bottom: 40px; display: block; overflow-wrap: break-word; word-break: normal;}
+  .huge-text:hover { color: var(--accent); -webkit-text-stroke: 0px; }
+  
+  .footer-links { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 25px; flex-wrap: wrap; gap: 20px; }
+  .social-big { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+  .social-big a { font-size: 1rem; font-family: 'Syne'; transition: 0.3s; }
+  .social-big a:hover { color: var(--accent); }
+  .copyright { color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase; }
+
+  /* =========================================
+     MOBILE RESPONSIVENESS (PERFECT FIX)
+  ========================================= */
+  @media (max-width: 1024px) {
+    .about-grid, .exp-card { grid-template-columns: 1fr; }
+    .srv-item { grid-template-columns: 1fr; gap: 15px; padding: 30px 20px; }
+    .srv-num { display: none; }
+  }
+
+  @media (max-width: 900px) {
+    .navbar { padding: 15px 5vw; background: #050505; } 
+    .hire-btn { display: none !important; } 
+    .menu-btn { display: block; }
+    
+    .nav-links {
+      position: absolute; top: 100%; left: 0; width: 100%;
+      background: #050505; border-bottom: 1px solid var(--border);
+      flex-direction: column; align-items: flex-start; padding: 20px 5vw; gap: 20px;
+      transform: translateY(-120%); opacity: 0; z-index: -1; visibility: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links.active { transform: translateY(0); opacity: 1; z-index: 99; visibility: visible; }
+    .nav-links a { font-size: 1.2rem; width: 100%; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    
+    .mobile-contact-btn { display: block !important; color: var(--accent) !important; font-weight: 700 !important; border-bottom: none !important; }
+
+    .hero { padding-top: 120px; text-align: left; }
+    .hero-stats { flex-direction: column; gap: 15px; }
+    .section { padding: 80px 5vw; }
+    .sec-header { margin-bottom: 40px; }
+    
+    /* NEW: Wrapped Tabs for Full Visibility on Mobile */
+    .filter-wrap { flex-wrap: wrap; justify-content: flex-start; gap: 10px; margin-bottom: 30px; }
+    .filter-btn { flex: 0 0 auto; font-size: 0.75rem; padding: 10px 18px; }
+    
+    .grid-3 { grid-template-columns: 1fr; }
+    .web-card { flex-direction: column; text-align: center; gap: 15px; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .banner-grid { grid-template-columns: 1fr; }
+    .footer-links { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom Cinematic Loader -->
+<div class="loader">
+  <div class="loader-text"><h1><span>ABUZAR YOUSAF</span></h1></div>
+  <div class="loader-progress"><div class="loader-bar"></div></div>
+</div>
+
+<!-- Magnetic Cursor (Desktop Only) -->
+<div class="cursor"></div>
+<div class="cursor-follower"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <a href="#" class="logo magnetic">Abuzar<span>.</span></a>
+  
+  <div class="nav-links" id="navLinks">
+    <a href="#about" class="magnetic">About</a>
+    <a href="#services" class="magnetic">Expertise</a>
+    <a href="#experience" class="magnetic">Experience</a>
+    <a href="#portfolio" class="magnetic">Portfolio</a>
+    <a href="#contact" class="magnetic mobile-contact-btn">Let's Talk</a>
+  </div>
+  
+  <div class="nav-right">
+    <a href="#contact" class="hire-btn magnetic">HIRE ME</a>
+    <i class="ph ph-list menu-btn" id="menuBtn"></i>
+  </div>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-subtitle"><span><i class="ph-fill ph-sparkle"></i> FULL-TIME / CONTRACT</span></div>
+  <h1 class="hero-title">
+    <div class="line"><span>WORDPRESS &</span></div>
+    <div class="line"><span style="color:var(--bg-dark); -webkit-text-stroke: 1px var(--text-main);">SHOPIFY</span></div>
+    <div class="line"><span>DEVELOPER.</span></div>
+  </h1>
+  <p class="hero-desc">I build e-commerce stores that don't just look good — they sell. Across 4+ years and 50+ WordPress & Shopify builds for clients in Pakistan, the UAE, the UK, and the USA, I've engineered fast, SEO-strong, conversion-focused websites from the ground up.</p>
+  <div class="hero-stats">
+    <div class="h-stat"><h4>4+</h4><p>Years Experience</p></div>
+    <div class="h-stat"><h4>50+</h4><p>Sites Built</p></div>
+    <div class="h-stat"><h4>1,000+</h4><p>Orders Processed / Mo.</p></div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrapper">
+  <div class="marquee">
+    <h2>WORDPRESS DEVELOPER <i class="ph-fill ph-star-four"></i> SHOPIFY EXPERT <i class="ph-fill ph-star-four"></i> WOOCOMMERCE SPECIALIST <i class="ph-fill ph-star-four"></i> SEO & CRO <i class="ph-fill ph-star-four"></i></h2>
+    <h2>WORDPRESS DEVELOPER <i class="ph-fill ph-star-four"></i> SHOPIFY EXPERT <i class="ph-fill ph-star-four"></i> WOOCOMMERCE SPECIALIST <i class="ph-fill ph-star-four"></i> SEO & CRO <i class="ph-fill ph-star-four"></i></h2>
+  </div>
+</div>
+
+<section id="about" class="section">
+  <div class="sec-header">
+    <div class="sec-tag">— 01 / SUMMARY</div>
+    <h2 class="reveal-text">Websites Engineered To Convert.</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-img media-card">
+      <img src="../assets/abuzar-photo.webp" alt="Abuzar Yousaf">
+    </div>
+    <div class="about-info">
+      <p class="about-text reveal-text">
+        A store isn't done when it looks good—it's done when it sells. <span>Since 2022, I've designed and launched 15+ WordPress & Shopify stores for client brands.</span><br><br>
+        I handle the full technical lifecycle: theme development, WooCommerce/Shopify setup, SEO structure, and ongoing performance optimization. <span>I manage 1,000+ product listings and 1,000+ monthly orders — so every store is fast, findable, and built to close the sale.</span>
+      </p>
+      <div class="skills-container">
+        <div class="skill-pill magnetic">WordPress Development</div>
+        <div class="skill-pill magnetic">Shopify / WooCommerce</div>
+        <div class="skill-pill magnetic">SEO & Site Speed</div>
+        <div class="skill-pill magnetic">Conversion Rate Optimization</div>
+        <div class="skill-pill magnetic">Product & Inventory Management</div>
+        <div class="skill-pill magnetic">E-Commerce Operations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <div class="sec-header">
+    <div class="sec-tag">— 02 / CORE SKILLS</div>
+    <h2 class="reveal-text">What I Bring to Your Company.</h2>
+  </div>
+  <div class="service-list">
+    <div class="srv-item magnetic">
+      <div class="srv-num">01 /</div>
+      <div class="srv-title">WordPress & Shopify Development</div>
+      <div class="srv-desc">Architecting, designing, and optimizing highly responsive WordPress and Shopify websites focused on user experience and conversion rate optimization (CRO).</div>
+    </div>
+    <div class="srv-item magnetic">
+      <div class="srv-num">02 /</div>
+      <div class="srv-title">WooCommerce & Store Operations</div>
+      <div class="srv-desc">End-to-end management of online stores. Handling inventory, updating 1,000+ product SKUs, and overseeing smooth fulfillment for 1,000+ monthly orders.</div>
+    </div>
+    <div class="srv-item magnetic">
+      <div class="srv-num">03 /</div>
+      <div class="srv-title">SEO & Site Performance</div>
+      <div class="srv-desc">Strengthening technical SEO and search visibility across client sites, improving organic traffic, page speed, and conversion rates.</div>
+    </div>
+    <div class="srv-item magnetic">
+      <div class="srv-num">04 /</div>
+      <div class="srv-title">E-Commerce Strategy & Launch</div>
+      <div class="srv-desc">Taking stores from concept to launch, aligning site structure and product data with each brand's sales goals.</div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="section">
+  <div class="sec-header">
+    <div class="sec-tag">— 03 / HISTORY</div>
+    <h2 class="reveal-text">Proven Experience.</h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="exp-date">AUG 2023 — APR 2025</div>
+        <div class="exp-company">Vibes By MHK</div>
+      </div>
+      <div class="exp-details">
+        <h4>WordPress & E-Commerce Operations Executive</h4>
+        <ul>
+          <li>Managed 1,000+ Shopify listings and WooCommerce stores across client brands, ensuring accurate product data while maintaining smooth order fulfillment and inventory accuracy.</li>
+          <li>Designed and launched 15+ WordPress and Shopify e-commerce websites.</li>
+          <li>Strengthened SEO and search visibility across client sites, improving organic traffic.</li>
+          <li>Processed 1,000+ monthly orders while improving site performance, speed, and conversion rates.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="exp-date">DEC 2025 — JUN 2026</div>
+        <div class="exp-company">Ethisol</div>
+      </div>
+      <div class="exp-details">
+        <h4>Social Media Manager</h4>
+        <ul>
+          <li>Directed digital strategy for 10+ client accounts, overseeing content systems and campaign execution alongside each brand's digital presence.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="exp-date">APR 2025 — DEC 2025</div>
+        <div class="exp-company">WE360</div>
+      </div>
+      <div class="exp-details">
+        <h4>Social Media Manager</h4>
+        <ul>
+          <li>Managed digital presence and content strategy for 6+ brands, supporting campaigns and product launches.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-meta">
+        <div class="exp-date">OCT 2022 — JUN 2023</div>
+        <div class="exp-company">Leomart</div>
+      </div>
+      <div class="exp-details">
+        <h4>Social Media & Customer Support Executive</h4>
+        <ul>
+          <li>Supported customer engagement and order resolution for 3+ brands, alongside daily digital content management.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="section">
+  <div class="sec-header">
+    <div class="sec-tag">— 04 / PORTFOLIO</div>
+    <h2 class="reveal-text">Websites & Stores Built.</h2>
+  </div>
+  
+  <div class="filter-wrap">
+    <button class="filter-btn magnetic" data-tab="social">Brands</button>
+    <button class="filter-btn magnetic active" data-tab="web">Websites</button>
+    <button class="filter-btn magnetic" data-tab="creative">Creatives</button>
+    <button class="filter-btn magnetic" data-tab="videos">Reels</button>
+    <button class="filter-btn magnetic" data-tab="logos">Identity</button>
+    <button class="filter-btn magnetic" data-tab="banners">Banners</button>
+  </div>
+
+  <div class="port-panel" id="social"><div class="grid-3" id="brand-grid"></div></div>
+  <div class="port-panel active" id="web"><div class="grid-3" id="web-grid"></div></div>
+  <div class="port-panel" id="creative"><div class="grid-4" id="creative-grid"></div></div>
+  <div class="port-panel" id="videos"><div class="grid-3" id="video-grid"></div></div>
+  <div class="port-panel" id="logos"><div class="grid-4" id="logo-grid"></div></div>
+  <div class="port-panel" id="banners"><div class="banner-grid" id="banner-grid"></div></div>
+</section>
+
+<footer class="footer" id="contact">
+  <a href="mailto:abuzaryousaf667@gmail.com" class="huge-text magnetic">HIRE ME</a>
+  <div class="footer-links">
+    <div class="copyright">© 2026 ABUZAR YOUSAF. READY TO JOIN YOUR TEAM.</div>
+    <div class="social-big">
+      <a href="mailto:abuzaryousaf667@gmail.com" class="magnetic">Email</a>
+      <a href="tel:+923302387965" class="magnetic">Phone</a>
+      <a href="https://linkedin.com/in/abuzaryousaf" target="_blank" class="magnetic">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // --- 1. MOBILE MENU TOGGLE ---
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  
+  menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    if(navLinks.classList.contains('active')) {
+      menuBtn.classList.replace('ph-list', 'ph-x');
+    } else {
+      menuBtn.classList.replace('ph-x', 'ph-list');
+    }
+  });
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+      menuBtn.classList.replace('ph-x', 'ph-list');
+    });
+  });
+
+  // --- 2. PORTFOLIO DATA GENERATION ---
+  const brands = [
+    { name: "Care Pakistan", ig: "https://www.instagram.com/carepakistanofficial/", fb: "https://www.facebook.com/officialcarepakistan", li: "https://www.linkedin.com/company/carecosmetics/" },
+    { name: "Elite Solutions", ig: "https://www.instagram.com/elitesolutions.pk/", fb: "https://www.facebook.com/elitesolutionspak/", li: "https://www.linkedin.com/company/elitesolutionspk/" },
+    { name: "7Cars UAE", ig: "https://www.instagram.com/7cars.ae", fb: "https://www.facebook.com/7cars.ae" },
+    { name: "Alina Dental", ig: "https://www.instagram.com/alinadentalclinic/", fb: "https://www.facebook.com/Alinadentalclinic/" },
+    { name: "Anaya's Kitchen", ig: "https://www.instagram.com/anayaskitchenlahore/", fb: "https://www.facebook.com/anayaskit" },
+    { name: "Vibes by MHK", ig: "https://www.instagram.com/vibes.bymhk/", fb: "https://www.facebook.com/vibesbymhkofficial", yt: "https://www.youtube.com/@VibesByMHK", tt: "https://www.tiktok.com/@vibes_bymhk" },
+    { name: "Halawa Silk", ig: "https://www.instagram.com/halawasilk/", fb: "https://www.facebook.com/halawasilk/", yt: "https://www.youtube.com/@HalawaSilk", tt: "https://www.tiktok.com/@halawasilk" },
+    { name: "TeeTokyo", ig: "https://www.instagram.com/teetokyo_/", fb: "https://www.facebook.com/profile.php?id=61585456144139" },
+    { name: "Hadaya Homes", ig: "https://www.instagram.com/hadayahomeslahore", fb: "https://www.facebook.com/profile.php?id=100094016972705" },
+    { name: "Robust Pakistan", ig: "https://www.instagram.com/robust.com.pk" },
+    { name: "Blackstone Foods", ig: "https://www.instagram.com/blackstonefoods.pk", fb: "https://www.facebook.com/profile.php?id=61585857871712", li: "https://www.linkedin.com/company/blackstonefoods/" },
+    { name: "Hydrpak", ig: "https://www.instagram.com/hydrpak" },
+    { name: "DextSoft", ig: "https://www.instagram.com/dext.soft/", fb: "https://www.facebook.com/dextsoftt/" },
+    { name: "DMCA Pakistan", ig: "https://www.instagram.com/dmca.pk", fb: "https://www.facebook.com/dmca.pk/" },
+    { name: "BIA Naturals", ig: "https://www.instagram.com/bianaturalsofficial" },
+    { name: "ARY Sportswear", fb: "https://www.facebook.com/arysportswear" },
+    { name: "Ethisol", fb: "https://www.facebook.com/Ethisol.uk/", li: "https://www.linkedin.com/company/ethisol/" },
+    { name: "UmrahKonnect", li: "https://www.linkedin.com/company/umrahkonnect/" },
+    { name: "Hadaya Living", fb: "https://www.facebook.com/hadayaliving" }
+  ];
+  
+  const ytBrands = [
+    { n: "FNF Stories Official", url: "https://www.youtube.com/@FNFStoriesOfficial" },
+    { n: "Storytime by MHK", url: "https://www.youtube.com/@storytimebymhk7553" },
+    { n: "Famous Personalities", url: "https://www.youtube.com/@famouspersonalitiesbymhk5607" },
+    { n: "Tech Review by MHK", url: "https://www.youtube.com/@techreviewbymhk4483" },
+    { n: "Crypto by MHK", url: "https://www.youtube.com/@cryptobymhk4983" },
+    { n: "Interesting Facts", url: "https://www.youtube.com/@interestingfactsbymhk9813" },
+    { n: "Movies by MHK", url: "https://www.youtube.com/@MoviesbyM.H.K-xs5rk" },
+    { n: "Fun Time with MHK", url: "https://www.youtube.com/@funtimewithmhk-yp8tp" },
+    { n: "Islamic Knowledge", url: "https://www.youtube.com/@IslamicKnowledge_0024" },
+    { n: "Online Earning Tips", url: "https://www.youtube.com/@OnlineEarningTipsByMHK" }
+  ];
+  
+  const bGrid = document.getElementById('brand-grid');
+  brands.forEach(b => {
+    let links = '';
+    if(b.ig) links += `<a href="${b.ig}" target="_blank" class="bg-ig magnetic"><i class="ph ph-instagram-logo"></i></a>`;
+    if(b.fb) links += `<a href="${b.fb}" target="_blank" class="bg-fb magnetic"><i class="ph ph-facebook-logo"></i></a>`;
+    if(b.yt) links += `<a href="${b.yt}" target="_blank" class="bg-yt magnetic"><i class="ph ph-youtube-logo"></i></a>`;
+    if(b.tt) links += `<a href="${b.tt}" target="_blank" class="bg-tt magnetic"><i class="ph ph-tiktok-logo"></i></a>`;
+    if(b.li) links += `<a href="${b.li}" target="_blank" class="bg-li magnetic"><i class="ph ph-linkedin-logo"></i></a>`;
+    bGrid.innerHTML += `<div class="brand-card"><div class="bc-head"><h3>${b.name}</h3></div><div class="bc-socials">${links}</div></div>`;
+  });
+  ytBrands.forEach(b => {
+    bGrid.innerHTML += `<div class="brand-card"><div class="bc-head"><h3>${b.n}</h3></div><div class="bc-socials"><a href="${b.url}" target="_blank" class="bg-yt magnetic"><i class="ph ph-youtube-logo"></i></a></div></div>`;
+  });
+
+  const websites = [
+    {n:"ARY Sportswear", l:"https://arysportswear.us"}, {n:"Vibes by MHK", l:"https://vibesbymhk.com"}, {n:"7Cars UAE", l:"https://7cars.ae"},
+    {n:"Halawa Silk", l:"https://halawasilk.pk"}, {n:"TeeTokyo", l:"https://teetokyo.com"}, {n:"Niaz Garments", l:"https://niazgarments.com"},
+    {n:"Stalfy Trading UK", l:"https://stalfytrading.co.uk"}, {n:"Elite Solutions", l:"https://elitesolutions.pk"}, {n:"Care Pakistan", l:"https://carepakistan.com.pk"},
+    {n:"Elite MEP", l:"https://mep.elitesolutions.pk"}, {n:"Kool Vibez", l:"https://koolvibez.com"}, {n:"Beauty Conscious", l:"https://beautyconscious.store"},
+    {n:"DMCA Pakistan", l:"https://dmca.pk/"}, {n:"BIA Naturals", l:"https://www.bianaturals.com/"}, {n:"Blackstone Foods", l:"https://blackstonefoods.com.pk/"},
+    {n:"Candi Skin", l:"https://www.candiskin.com/"}, {n:"Dracuir", l:"https://dracuir.com/"}, {n:"Quadratax", l:"https://quadratax.com/"}
+  ];
+  const wGrid = document.getElementById('web-grid');
+  websites.forEach(w => {
+    wGrid.innerHTML += `<a href="${w.l}" target="_blank" class="web-card hover-target magnetic"><h3>${w.n}</h3><div class="arrow-btn"><i class="ph-bold ph-arrow-up-right"></i></div></a>`;
+  });
+
+  const generateMedia = (id, count, folder, singular, ext, cls, isVid=false) => {
+    const grid = document.getElementById(id);
+    let html = '';
+    for(let i=1; i<=count; i++){
+      const filePath = `../assets/${folder}/${singular} (${i}).${ext}`;
+      if(isVid) {
+        html += `<div class="media-card video"><video src="${filePath}" controls playsinline preload="metadata"></video></div>`;
+      } else {
+        html += `<a href="${filePath}" target="_blank" class="media-card ${cls}"><img src="${filePath}" loading="lazy"></a>`;
+      }
+    }
+    grid.innerHTML = html;
+  };
+  generateMedia('creative-grid', 237, 'creative', 'creative', 'webp', '');
+  generateMedia('video-grid', 42, 'videos', 'video', 'webm', '', true);
+  generateMedia('logo-grid', 8, 'logos', 'logo', 'webp', 'logo-box');
+  generateMedia('banner-grid', 10, 'banners', 'banner', 'webp', 'banner');
+
+
+  // --- 3. ANIMATIONS & INTERACTIONS ---
+  const gsapReady = typeof gsap !== 'undefined';
+
+  // Safety net: no matter what happens with the GSAP/Lenis CDNs below,
+  // never leave a visitor stuck behind the loader with a hidden cursor.
+  setTimeout(() => {
+    const loaderEl = document.querySelector('.loader');
+    if (loaderEl && loaderEl.style.display !== 'none') loaderEl.style.display = 'none';
+  }, 4000);
+
+  if (gsapReady && window.innerWidth > 900) {
+    const cursor = document.querySelector('.cursor');
+    const follower = document.querySelector('.cursor-follower');
+    document.documentElement.classList.add('cursor-active');
+    window.addEventListener('mousemove', (e) => {
+      gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+      gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power2.out" });
+    });
+    document.querySelectorAll('.magnetic').forEach(mag => {
+      mag.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      mag.addEventListener('mouseleave', () => { document.body.classList.remove('hovering'); gsap.to(mag, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" }); });
+      mag.addEventListener('mousemove', (e) => {
+        const b = mag.getBoundingClientRect();
+        gsap.to(mag, { x: (e.clientX - b.left - b.width/2) * 0.3, y: (e.clientY - b.top - b.height/2) * 0.3, duration: 0.2 });
+      });
+    });
+  }
+
+  if (gsapReady) {
+    try {
+      // Preloader animation - Hides completely after finishing so clicks are not blocked
+      const tl = gsap.timeline({
+        onComplete: () => {
+          document.querySelector('.loader').style.display = 'none';
+        }
+      });
+
+      tl.to('.loader-bar', { width: '100%', duration: 1.5, ease: "power3.inOut" })
+        .to('.loader-text span', { y: 0, duration: 0.8, ease: "power4.out" }, "-=0.5")
+        .to('.loader', { yPercent: -100, duration: 1, ease: "expo.inOut", delay: 0.3 })
+        .from('.hero-title .line span', { yPercent: 100, duration: 1.2, stagger: 0.1, ease: "expo.out" }, "-=0.5")
+        .from('.hero-subtitle, .hero-desc, .hero-stats', { opacity: 0, y: 30, duration: 1, stagger: 0.2, ease: "power3.out" }, "-=0.8");
+
+      if (typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        if (typeof Lenis !== 'undefined') {
+          const lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add((time) => lenis.raf(time * 1000));
+          gsap.ticker.lagSmoothing(0);
+        }
+        gsap.utils.toArray('.sec-header').forEach(h => {
+          gsap.from(h, { scrollTrigger: { trigger: h, start: "top 85%" }, opacity: 0, y: 40, duration: 1, ease: "power3.out" });
+        });
+      }
+
+      gsap.to('.marquee', { xPercent: -50, ease: "none", duration: 15, repeat: -1 });
+    } catch (err) {
+      document.querySelector('.loader').style.display = 'none';
+    }
+  } else {
+    // GSAP CDN failed to load — reveal the page immediately, no animation, no stuck screen
+    document.querySelector('.loader').style.display = 'none';
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.port-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      ScrollTrigger.refresh();
+      setTimeout(() => lenis.resize(), 200);
+    });
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('.video-card video').forEach(v => {
+      v.addEventListener('loadedmetadata', () => { v.currentTime = v.duration ? v.duration/2 : 1; });
+      v.addEventListener('seeked', function os(){
+        v.removeEventListener('seeked', os);
+        try{
+          const c=document.createElement('canvas'); c.width=v.videoWidth; c.height=v.videoHeight;
+          c.getContext('2d').drawImage(v,0,0,c.width,c.height); v.poster=c.toDataURL();
+        }catch(e){}
+        v.currentTime=0;
+      });
+    });
+  }, 1000);
+</script>
+
+</body>
+</html>
