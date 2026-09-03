@@ -156,6 +156,10 @@
   /* Grids */
   .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
   .grid-4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
+
+  /* Creatives: keep normal row-order grid (so newest-first sequence stays correct),
+     but use object-fit:contain so mixed sizes (1:1 and 4:5) never get cropped */
+  #creative-grid .media-card img { object-fit: contain; background: #0a0a0a; }
   
   /* Cards */
   .brand-card { 
@@ -201,6 +205,25 @@
 
   .banner-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .media-card.banner { aspect-ratio: 16/9; }
+
+  /* --- AD RESULTS / CASE STUDY CARDS --- */
+  .ad-card {
+    background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px;
+    padding: 30px; display: flex; flex-direction: column; gap: 18px; transition: 0.4s;
+  }
+  .ad-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+  .ad-card-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .ad-platform { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1.5px; border: 1px solid var(--accent); padding: 5px 12px; border-radius: 100px; }
+  .ad-platform.meta { color: #4d94ff; border-color: #1877F2; }
+  .ad-platform.tiktok { color: #fff; border-color: rgba(255,255,255,0.6); }
+  .ad-platform.google { color: #8ab4f8; border-color: #4285F4; }
+  .ad-client { font-family: 'Syne'; font-weight: 700; font-size: 1.15rem; }
+  .ad-shot { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 12px; background: #000; border: 1px solid var(--border); }
+  .ad-block-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
+  .ad-block-text { font-size: 0.9rem; color: var(--text-main); font-weight: 300; line-height: 1.5; }
+  .ad-metrics { display: flex; gap: 25px; flex-wrap: wrap; border-top: 1px solid var(--border); padding-top: 18px; }
+  .ad-metric h4 { font-family: 'Syne'; font-size: 1.5rem; color: var(--accent); font-weight: 800; }
+  .ad-metric p { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
 
   /* --- FOOTER --- */
   .footer { padding: 80px 4vw 40px; text-align: center; border-top: 1px solid var(--border); overflow: hidden; }
@@ -252,6 +275,7 @@
     .web-card { flex-direction: column; text-align: center; gap: 15px; }
     .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
     .banner-grid { grid-template-columns: 1fr; }
+    .ad-metrics { gap: 18px; }
     .footer-links { flex-direction: column; text-align: center; }
   }
 </style>
@@ -439,6 +463,7 @@
     <button class="filter-btn magnetic active" data-tab="social">Brands</button>
     <button class="filter-btn magnetic" data-tab="creative">Creatives</button>
     <button class="filter-btn magnetic" data-tab="videos">Reels</button>
+    <button class="filter-btn magnetic" data-tab="ads">Ad Results</button>
     <button class="filter-btn magnetic" data-tab="logos">Identity</button>
     <button class="filter-btn magnetic" data-tab="banners">Banners</button>
   </div>
@@ -447,6 +472,7 @@
   <div class="port-panel" id="web" style="display:none;"><div class="grid-3" id="web-grid"></div></div>
   <div class="port-panel" id="creative"><div class="grid-4" id="creative-grid"></div></div>
   <div class="port-panel" id="videos"><div class="grid-3" id="video-grid"></div></div>
+  <div class="port-panel" id="ads"><div class="grid-3" id="ads-grid"></div></div>
   <div class="port-panel" id="logos"><div class="grid-4" id="logo-grid"></div></div>
   <div class="port-panel" id="banners"><div class="banner-grid" id="banner-grid"></div></div>
 </section>
@@ -547,10 +573,64 @@
     wGrid.innerHTML += `<a href="${w.l}" target="_blank" class="web-card hover-target magnetic"><h3>${w.n}</h3><div class="arrow-btn"><i class="ph-bold ph-arrow-up-right"></i></div></a>`;
   });
 
+  const adCampaigns = [
+    {
+      platform: "META ADS",
+      client: "E-Commerce Client",
+      shot: "../assets/ads/ad (1).webp",
+      objective: "Increase online sales for a new product launch while keeping cost per purchase low.",
+      strategy: "Ran a structured Meta Ads funnel (Awareness → Retargeting) with 6 creative variations, A/B tested weekly to find winning angles.",
+      metrics: [ {v:"3.4x", l:"ROAS"}, {v:"4.1%", l:"CTR"}, {v:"250K+", l:"Reach"} ]
+    },
+    {
+      platform: "TIKTOK ADS",
+      client: "Fashion Brand",
+      shot: "../assets/ads/ad (2).webp",
+      objective: "Grow brand awareness and drive traffic to the website among a younger audience.",
+      strategy: "Produced native-style TikTok creatives and Spark Ads using organic top-performing content to boost credibility and lower CPM.",
+      metrics: [ {v:"1.2M", l:"Impressions"}, {v:"$0.18", l:"CPC"}, {v:"38%", l:"Video View Rate"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "Local Service Business",
+      shot: "../assets/ads/ad (3).webp",
+      objective: "Generate qualified leads through Facebook & Instagram lead forms.",
+      strategy: "Built a lead-gen campaign with location targeting, lookalike audiences, and continuous budget optimization across ad sets.",
+      metrics: [ {v:"420+", l:"Leads Generated"}, {v:"$4.90", l:"Cost / Lead"}, {v:"2.8x", l:"ROAS"} ]
+    },
+    {
+      platform: "GOOGLE ADS",
+      client: "E-Commerce Client",
+      shot: "../assets/ads/ad (4).webp",
+      objective: "Capture high-intent search traffic and boost online sales via Google Search & Shopping.",
+      strategy: "Built keyword-targeted Search campaigns with tight ad groups, negative keywords, and a Shopping feed optimization, tracking conversions via GA4.",
+      metrics: [ {v:"5.2x", l:"ROAS"}, {v:"$1.20", l:"Avg. CPC"}, {v:"12%", l:"Conversion Rate"} ]
+    }
+  ];
+  const adsGrid = document.getElementById('ads-grid');
+  const platformClass = (p) => {
+    const s = p.toLowerCase();
+    if (s.includes('meta') || s.includes('facebook') || s.includes('instagram')) return 'meta';
+    if (s.includes('tiktok')) return 'tiktok';
+    if (s.includes('google')) return 'google';
+    return '';
+  };
+  adCampaigns.slice().reverse().forEach(a => {
+    const metricsHtml = a.metrics.map(m => `<div class="ad-metric"><h4>${m.v}</h4><p>${m.l}</p></div>`).join('');
+    adsGrid.innerHTML += `
+      <div class="ad-card">
+        <div class="ad-card-top"><span class="ad-platform ${platformClass(a.platform)}">${a.platform}</span><span class="ad-client">${a.client}</span></div>
+        ${a.shot ? `<img class="ad-shot" src="${a.shot}" loading="lazy" alt="${a.client} ad results">` : ''}
+        <div><div class="ad-block-label">Objective</div><div class="ad-block-text">${a.objective}</div></div>
+        <div><div class="ad-block-label">Strategy</div><div class="ad-block-text">${a.strategy}</div></div>
+        <div class="ad-metrics">${metricsHtml}</div>
+      </div>`;
+  });
+
   const generateMedia = (id, count, folder, singular, ext, cls, isVid=false) => {
     const grid = document.getElementById(id);
     let html = '';
-    for(let i=1; i<=count; i++){
+    for(let i=count; i>=1; i--){
       const filePath = `../assets/${folder}/${singular} (${i}).${ext}`;
       if(isVid) {
         html += `<div class="media-card video"><video src="${filePath}" controls playsinline preload="metadata"></video></div>`;
@@ -560,10 +640,10 @@
     }
     grid.innerHTML = html;
   };
-  generateMedia('creative-grid', 237, 'creative', 'creative', 'webp', '');
-  generateMedia('video-grid', 42, 'videos', 'video', 'webm', '', true);
+  generateMedia('creative-grid', 273, 'creative', 'creative', 'webp', '');
+  generateMedia('video-grid', 69, 'videos', 'video', 'webm', '', true);
   generateMedia('logo-grid', 8, 'logos', 'logo', 'webp', 'logo-box');
-  generateMedia('banner-grid', 10, 'banners', 'banner', 'webp', 'banner');
+  generateMedia('banner-grid', 18, 'banners', 'banner', 'webp', 'banner');
 
 
   // --- 3. ANIMATIONS & INTERACTIONS ---
