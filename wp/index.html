@@ -180,6 +180,7 @@
   .bg-yt { background: linear-gradient(135deg, #ff4d4d, #FF0000); }
   .bg-tt { background: linear-gradient(135deg, #2a2a2a, #000000); border: 1px solid rgba(255,255,255,0.12); }
   .bg-li { background: linear-gradient(135deg, #2d8fe0, #0A66C2); }
+  .bg-web { background: linear-gradient(135deg, var(--accent), #cc5200); }
   
   .web-card { 
     background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; 
@@ -483,8 +484,27 @@
   // --- 2. PORTFOLIO DATA GENERATION ---
   const brands = [
     { name: "Care Pakistan", ig: "https://www.instagram.com/carepakistanofficial/", fb: "https://www.facebook.com/officialcarepakistan", li: "https://www.linkedin.com/company/carecosmetics/" },
+    { name: "Pasha Fabrics", ig: "https://www.instagram.com/pashafabricsofficial/", fb: "https://www.facebook.com/pashafabrics.official/", yt: "https://www.youtube.com/@pashafabricsofficial", web: "https://www.pashafabrics.com" },
+    { name: "BilalMarch7", ig: "https://www.instagram.com/bilal.marth07/", fb: "https://www.facebook.com/bilalmarth7.pk/", yt: "https://www.youtube.com/@Bilalmarthofficial07", tt: "https://www.tiktok.com/@bilalmarth07", web: "https://bilalmarth7.pk" },
+    { name: "OneDish", ig: "https://www.instagram.com/onedish_sweets/", fb: "https://www.facebook.com/profile.php?id=61563935295916", tt: "https://www.tiktok.com/@onedishpakistan", web: "https://onedish.pk" },
+    { name: "Battmax", ig: "https://www.instagram.com/batteryconditioner/", fb: "https://www.facebook.com/profile.php?id=61563190703204", yt: "https://www.youtube.com/@BattMaxx", tt: "https://www.tiktok.com/@battmax.pk", web: "https://battmax.pk" },
+    { name: "Leatheo", ig: "https://www.instagram.com/leatheoandco", fb: "https://www.facebook.com/profile.php?id=61591230194452", tt: "https://www.tiktok.com/@leatheoclassic", web: "https://leatheo.com" },
+    { name: "Organic Sens", ig: "https://www.instagram.com/organic.sens/", fb: "https://www.facebook.com/organic.sens/", tt: "https://www.tiktok.com/@organic.sens/", web: "https://organicsens.com" },
     { name: "Elite Solutions", ig: "https://www.instagram.com/elitesolutions.pk/", fb: "https://www.facebook.com/elitesolutionspak/", li: "https://www.linkedin.com/company/elitesolutionspk/" },
     { name: "7Cars UAE", ig: "https://www.instagram.com/7cars.ae", fb: "https://www.facebook.com/7cars.ae" },
+    { name: "BIQ Pharma", ig: "https://www.instagram.com/biqpharma_official", fb: "https://www.facebook.com/biqpharma", tt: "https://www.tiktok.com/@biqpharma.com.pk", web: "https://biqpharma.com.pk" },
+    { name: "Filmbase Pakistan", ig: "https://www.instagram.com/filmbasepakistan/", fb: "https://www.facebook.com/filmbasepakistan/", web: "https://filmbasepakistan.com" },
+    { name: "Dr. Nazish Affan", ig: "https://www.instagram.com/nourishbydrnazish/", fb: "https://www.facebook.com/drnazshaffan/", yt: "https://www.youtube.com/@drnazishaffan", tt: "https://www.tiktok.com/@dr.nazishaffan", web: "https://drnazishaffan.com" },
+    { name: "SafeT Stores", ig: "https://www.instagram.com/safetstores", fb: "https://www.facebook.com/profile.php?id=61563756875482", tt: "https://www.tiktok.com/@safetstores", web: "https://safetstores.com" },
+    { name: "Mléko", ig: "https://www.instagram.com/mleko.pk/", fb: "https://www.facebook.com/profile.php?id=61588579929845", web: "https://mleko.com.pk" },
+    { name: "Rite Frozen Foods", ig: "https://www.instagram.com/ritefrozenfoods/", fb: "https://www.facebook.com/ritefrozenfoodslahore/", web: "https://ritefrozenfoods.pk" },
+    { name: "Verminator", ig: "https://www.instagram.com/verminatorpakistanltd/", fb: "https://www.facebook.com/Verminatorpakistan", li: "https://www.linkedin.com/company/verminator-pvt-ltd/", yt: "https://www.youtube.com/@VerminatorPakistan", tt: "https://www.tiktok.com/@verminatorpakistanltd", web: "https://verminatorproducts.com" },
+    { name: "Dark Black", ig: "https://www.instagram.com/darkblack.pk/", fb: "https://www.facebook.com/profile.php?id=61578706981254", web: "https://darkblack.shop" },
+    { name: "Crafts by Meesal", ig: "https://www.instagram.com/craftsbymeesal", fb: "https://www.facebook.com/p/Crafts-By-Meesal-100092990941702/", web: "https://www.craftbymeesal.com" },
+    { name: "Florence Heights", ig: "https://www.instagram.com/florenceheights.pk/", fb: "https://www.facebook.com/florenceheightsislamabad/", web: "https://florenceheights.com" },
+    { name: "Layref Real Estate", ig: "https://www.instagram.com/layrefrealestate/", fb: "https://www.facebook.com/p/Layref-Real-Estate-61585409023965/", web: "https://www.layref.com" },
+    { name: "Alhikmat Herbs", ig: "https://www.instagram.com/alhikmatherbs", fb: "https://www.facebook.com/profile.php?id=61576503579259", tt: "https://www.tiktok.com/@alhikmatherbs", web: "https://alhikmatherbs.com" },
+    { name: "Shifaam", ig: "https://www.instagram.com/officialshifaam/", fb: "https://www.facebook.com/shifaamcares/", li: "https://pk.linkedin.com/company/shifaam", yt: "https://www.youtube.com/channel/UCMRSsGAKZSZq8-iHbGPY9fQ", tt: "https://www.tiktok.com/@aslishifaam", web: "https://www.shifaam.com" },
     { name: "Alina Dental", ig: "https://www.instagram.com/alinadentalclinic/", fb: "https://www.facebook.com/Alinadentalclinic/" },
     { name: "Anaya's Kitchen", ig: "https://www.instagram.com/anayaskitchenlahore/", fb: "https://www.facebook.com/anayaskit" },
     { name: "Vibes by MHK", ig: "https://www.instagram.com/vibes.bymhk/", fb: "https://www.facebook.com/vibesbymhkofficial", yt: "https://www.youtube.com/@VibesByMHK", tt: "https://www.tiktok.com/@vibes_bymhk" },
@@ -524,6 +544,7 @@
     if(b.yt) links += `<a href="${b.yt}" target="_blank" class="bg-yt magnetic"><i class="ph ph-youtube-logo"></i></a>`;
     if(b.tt) links += `<a href="${b.tt}" target="_blank" class="bg-tt magnetic"><i class="ph ph-tiktok-logo"></i></a>`;
     if(b.li) links += `<a href="${b.li}" target="_blank" class="bg-li magnetic"><i class="ph ph-linkedin-logo"></i></a>`;
+    if(b.web) links += `<a href="${b.web}" target="_blank" class="bg-web magnetic"><i class="ph ph-globe"></i></a>`;
     bGrid.innerHTML += `<div class="brand-card"><div class="bc-head"><h3>${b.name}</h3></div><div class="bc-socials">${links}</div></div>`;
   });
   ytBrands.forEach(b => {
