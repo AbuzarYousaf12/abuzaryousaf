@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Abuzar Yousaf | Social Media Manager</title>
+<title>Abuzar Yousaf | Digital Marketing Manager & Social Media Executive</title>
+<meta name="description" content="Abuzar Yousaf — Digital Marketing Manager & Social Media Executive with 4+ years scaling brands via Meta, Google & TikTok Ads, GA4-driven ROAS optimization, and e-commerce growth (Shopify/WordPress).">
+<meta name="keywords" content="Digital Marketing Manager, Social Media Manager, Meta Ads Specialist, Google Ads Expert, TikTok Ads, ROAS Optimization, GA4, Shopify, WordPress, CRO, Performance Marketing, Lahore Pakistan">
+<meta name="author" content="Abuzar Yousaf">
+<meta property="og:title" content="Abuzar Yousaf | Digital Marketing Manager & Social Media Executive">
+<meta property="og:description" content="4+ years scaling brands via Meta, Google & TikTok Ads — driving ROAS, CRO, and e-commerce growth.">
+<meta property="og:type" content="website">
 
 <!-- Fonts: Syne (Bold/Display) & Inter (Clean/Readable) & IBM Plex Mono (Labels) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -157,9 +163,12 @@
   .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
   .grid-4 { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
 
-  /* Creatives: keep normal row-order grid (so newest-first sequence stays correct),
-     but use object-fit:contain so mixed sizes (1:1 and 4:5) never get cropped */
-  #creative-grid .media-card img { object-fit: contain; background: #0a0a0a; }
+  /* --- LIGHTBOX (click any creative/banner to view full, uncropped) --- */
+  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 999; display: none; align-items: center; justify-content: center; padding: 40px; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; cursor: default; }
+  .lightbox-close { position: absolute; top: 25px; right: 30px; color: #fff; font-size: 2rem; cursor: pointer; opacity: 0.7; transition: 0.3s; }
+  .lightbox-close:hover { opacity: 1; }
   
   /* Cards */
   .brand-card { 
@@ -184,6 +193,7 @@
   .bg-yt { background: linear-gradient(135deg, #ff4d4d, #FF0000); }
   .bg-tt { background: linear-gradient(135deg, #2a2a2a, #000000); border: 1px solid rgba(255,255,255,0.12); }
   .bg-li { background: linear-gradient(135deg, #2d8fe0, #0A66C2); }
+  .bg-web { background: linear-gradient(135deg, var(--accent), #cc5200); }
   
   .web-card { 
     background: var(--bg-light); border: 1px solid var(--border); border-radius: 20px; 
@@ -195,7 +205,7 @@
   .arrow-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--text-main); color: var(--bg-dark); display: flex; align-items: center; justify-content: center; transition: 0.3s; }
   .web-card:hover .arrow-btn { background: var(--accent); transform: rotate(45deg); }
 
-  .media-card { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4/5; background: #111; border: 1px solid var(--border); }
+  .media-card { position: relative; overflow: hidden; border-radius: 16px; aspect-ratio: 4/5; background: #111; border: 1px solid var(--border); cursor: pointer; }
   .media-card img, .media-card video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
   .media-card:hover img, .media-card:hover video { transform: scale(1.05); }
   .media-card.video { aspect-ratio: 9/16; }
@@ -315,21 +325,21 @@
   <h1 class="hero-title">
     <div class="line"><span>SOCIAL MEDIA</span></div>
     <div class="line"><span style="color:var(--bg-dark); -webkit-text-stroke: 1px var(--text-main);">MANAGER &</span></div>
-    <div class="line"><span>GROWTH MANAGER.</span></div>
+    <div class="line"><span>DIGITAL MARKETER.</span></div>
   </h1>
-  <p class="hero-desc">I turn content into community and community into growth. Across 4+ years and 10+ client accounts spanning Pakistan, the UAE, the UK, and the USA, I've built content strategies, run high-performing Meta Ad campaigns, and led creative teams producing 300+ assets a month.</p>
+  <p class="hero-desc">Results-driven Digital Marketing & Social Media Manager with 4+ years scaling brands across agencies and e-commerce. I manage 15+ ad accounts and 40+ profiles, run high-ROI performance marketing across Meta, Google & TikTok, and use GA4 to optimize ROAS, drive CRO, and build lasting stakeholder partnerships.</p>
   <div class="hero-stats">
     <div class="h-stat"><h4>4+</h4><p>Years Experience</p></div>
-    <div class="h-stat"><h4>40+</h4><p>Brands Managed</p></div>
-    <div class="h-stat"><h4>100+</h4><p>Campaigns Executed</p></div>
+    <div class="h-stat"><h4>15+</h4><p>Ad Accounts Managed</p></div>
+    <div class="h-stat"><h4>3x+</h4><p>Avg. ROAS Delivered</p></div>
   </div>
 </section>
 
 <!-- Marquee -->
 <div class="marquee-wrapper">
   <div class="marquee">
-    <h2>SOCIAL MEDIA STRATEGIST <i class="ph-fill ph-star-four"></i> CONTENT MANAGER <i class="ph-fill ph-star-four"></i> META ADS SPECIALIST <i class="ph-fill ph-star-four"></i> COMMUNITY GROWTH EXPERT <i class="ph-fill ph-star-four"></i></h2>
-    <h2>SOCIAL MEDIA STRATEGIST <i class="ph-fill ph-star-four"></i> CONTENT MANAGER <i class="ph-fill ph-star-four"></i> META ADS SPECIALIST <i class="ph-fill ph-star-four"></i> COMMUNITY GROWTH EXPERT <i class="ph-fill ph-star-four"></i></h2>
+    <h2>DIGITAL MARKETING MANAGER <i class="ph-fill ph-star-four"></i> META ADS SPECIALIST <i class="ph-fill ph-star-four"></i> GOOGLE ADS EXPERT <i class="ph-fill ph-star-four"></i> TIKTOK ADS SPECIALIST <i class="ph-fill ph-star-four"></i> E-COMMERCE STRATEGIST <i class="ph-fill ph-star-four"></i></h2>
+    <h2>DIGITAL MARKETING MANAGER <i class="ph-fill ph-star-four"></i> META ADS SPECIALIST <i class="ph-fill ph-star-four"></i> GOOGLE ADS EXPERT <i class="ph-fill ph-star-four"></i> TIKTOK ADS SPECIALIST <i class="ph-fill ph-star-four"></i> E-COMMERCE STRATEGIST <i class="ph-fill ph-star-four"></i></h2>
   </div>
 </div>
 
@@ -344,16 +354,18 @@
     </div>
     <div class="about-info">
       <p class="about-text reveal-text">
-        Great social media isn't about posting—it's about building a system that compounds. <span>Since 2022, I have scaled 40+ brands by combining data-driven content strategy with consistent, on-brand execution.</span><br><br>
-        From content calendars to Meta Ad campaigns, I own the full social lifecycle. <span>I lead creative teams producing 200+ designs and 50+ videos a month, turning everyday engagement into measurable growth for every brand I manage.</span>
+        Great marketing isn't about posting or spending—it's about building a system that compounds. <span>With 4+ years across agencies and e-commerce, I've managed 15+ ad accounts and 40+ profiles, developed 50+ Shopify/WordPress sites, and processed 1,000+ monthly orders.</span><br><br>
+        From paid media to content strategy, I own the full growth lifecycle. <span>I run high-ROI performance marketing across Meta, Google, and TikTok, using GA4 to optimize ROAS, drive CRO, and turn everyday engagement into measurable growth for every brand I manage.</span>
       </p>
       <div class="skills-container">
-        <div class="skill-pill magnetic">Social Media Strategy</div>
-        <div class="skill-pill magnetic">Content Calendar Management</div>
         <div class="skill-pill magnetic">Meta Ads Manager</div>
-        <div class="skill-pill magnetic">Campaign Planning</div>
-        <div class="skill-pill magnetic">Team Leadership</div>
-        <div class="skill-pill magnetic">Community Management</div>
+        <div class="skill-pill magnetic">Google Ads (PPC)</div>
+        <div class="skill-pill magnetic">TikTok Ads</div>
+        <div class="skill-pill magnetic">GA4 & ROAS Optimization</div>
+        <div class="skill-pill magnetic">Shopify & WordPress</div>
+        <div class="skill-pill magnetic">CRO & Technical SEO</div>
+        <div class="skill-pill magnetic">AI Content & Video Creation</div>
+        <div class="skill-pill magnetic">Team & Stakeholder Management</div>
       </div>
     </div>
   </div>
@@ -367,23 +379,23 @@
   <div class="service-list">
     <div class="srv-item magnetic">
       <div class="srv-num">01 /</div>
-      <div class="srv-title">Social Media Strategy</div>
-      <div class="srv-desc">Developing holistic content calendars, managing community engagement, and executing algorithmic growth strategies across Meta, TikTok, and LinkedIn.</div>
+      <div class="srv-title">Paid Media & Analytics</div>
+      <div class="srv-desc">Meta, Google (PPC) & TikTok Ads with GA4 tracking. Continuously A/B testing creatives to optimize ROAS/CPA and lower CAC.</div>
     </div>
     <div class="srv-item magnetic">
       <div class="srv-num">02 /</div>
-      <div class="srv-title">Paid Acquisition (Meta Ads)</div>
-      <div class="srv-desc">Planning and executing data-backed advertising campaigns. Continuously A/B testing creatives to lower CAC and maximize Return on Ad Spend (ROAS).</div>
+      <div class="srv-title">Social Media & AI Content</div>
+      <div class="srv-desc">Omnichannel content strategy, AI-driven video creation, organic growth, and graphic design across every platform.</div>
     </div>
     <div class="srv-item magnetic">
       <div class="srv-num">03 /</div>
-      <div class="srv-title">Content Production & Direction</div>
-      <div class="srv-desc">Leading design and video teams to produce 200+ visual assets and 50+ reels monthly, maintaining consistent brand voice across every platform.</div>
+      <div class="srv-title">E-Commerce & SEO</div>
+      <div class="srv-desc">Shopify, WordPress & WooCommerce builds with CRO, technical SEO, and landing page optimization to convert traffic into orders.</div>
     </div>
     <div class="srv-item magnetic">
       <div class="srv-num">04 /</div>
-      <div class="srv-title">Client & Team Leadership</div>
-      <div class="srv-desc">Managing relationships across 10+ client accounts, aligning content with brand goals while leading cross-functional creative teams to 100% on-time delivery.</div>
+      <div class="srv-title">Leadership & Accounts</div>
+      <div class="srv-desc">Managing B2B & B2C client relationships across 15+ accounts, leading cross-functional teams to 100% on-time delivery.</div>
     </div>
   </div>
 </section>
@@ -396,16 +408,29 @@
   <div class="exp-grid">
     <div class="exp-card">
       <div class="exp-meta">
+        <div class="exp-date">JULY 2026 — PRESENT</div>
+        <div class="exp-company">Nexquick Solutions</div>
+      </div>
+      <div class="exp-details">
+        <h4>Digital Marketing Manager</h4>
+        <ul>
+          <li>Managed end-to-end paid ad strategies (Google, Meta, TikTok) for 15+ B2B/B2C clients.</li>
+          <li>Optimized budgets and targeting, decreasing CPA by 20% while maintaining 3x+ ROAS.</li>
+          <li>Created and tested different ad creatives and landing pages, improving CTR by 35% and delivering actionable performance reports.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-card">
+      <div class="exp-meta">
         <div class="exp-date">DEC 2025 — JUN 2026</div>
         <div class="exp-company">Ethisol</div>
       </div>
       <div class="exp-details">
-        <h4>Social Media Manager</h4>
+        <h4>Social Media Manager & Executive</h4>
         <ul>
           <li>Directed social media strategy for 10+ client accounts across multiple industries, aligning content with each brand's goals while reliably meeting client expectations and deadlines.</li>
-          <li>Produced 50+ posts, 200+ designs, and 50+ videos monthly across Facebook, Instagram, LinkedIn, and TikTok, maintaining consistent brand voice and driving audience growth.</li>
-          <li>Executed 100+ campaigns, expanding reach, engagement, and visibility for clients.</li>
-          <li>Owned content calendars from planning through delivery, maintaining 100% on-time completion while tracking performance analytics to lift engagement and improve overall reach.</li>
+          <li>Produced 50+ posts, 200+ designs, and 50+ videos monthly across Meta, LinkedIn, and TikTok, maintaining consistent brand voice and driving audience growth by 40%.</li>
+          <li>Executed 100+ campaigns with 100% on-time delivery, using analytics to continuously lift engagement.</li>
         </ul>
       </div>
     </div>
@@ -415,12 +440,10 @@
         <div class="exp-company">WE360</div>
       </div>
       <div class="exp-details">
-        <h4>Social Media Manager</h4>
+        <h4>Social Media Manager & Content Creator</h4>
         <ul>
-          <li>Led social media management for 6+ brands across Facebook, Instagram, LinkedIn, and TikTok.</li>
-          <li>Produced 300+ posts, reels, and creative assets supporting brand campaigns and product launches.</li>
-          <li>Grew engagement and reach through structured content planning and campaign execution.</li>
-          <li>Maintained monthly content calendars and used performance analytics to guide content decisions.</li>
+          <li>Led community growth for 6+ brands, producing 300+ creative assets for successful product launches.</li>
+          <li>Grew organic engagement and follower base by 30% through structured content calendars and trend analysis.</li>
         </ul>
       </div>
     </div>
@@ -430,9 +453,10 @@
         <div class="exp-company">Vibes By MHK</div>
       </div>
       <div class="exp-details">
-        <h4>WordPress & E-Commerce Operations Executive</h4>
+        <h4>WordPress & E-Commerce Executive</h4>
         <ul>
-          <li>Also led digital operations for client e-commerce stores — managing 1,000+ Shopify/WooCommerce listings, 15+ website launches, and ongoing SEO performance.</li>
+          <li>Launched & developed 15+ optimized Shopify/WordPress sites and managed 1,000+ product listings with SEO best practices.</li>
+          <li>Streamlined fulfillment for 1,000+ monthly orders, maintaining 99% inventory accuracy and boosting conversions.</li>
         </ul>
       </div>
     </div>
@@ -442,11 +466,10 @@
         <div class="exp-company">Leomart</div>
       </div>
       <div class="exp-details">
-        <h4>Social Media & Customer Support Executive</h4>
+        <h4>Social Media Manager & CSR</h4>
         <ul>
-          <li>Managed daily social media content and customer engagement for 3+ brands.</li>
-          <li>Designed 150+ promotional graphics and short-form videos to support campaigns.</li>
-          <li>Resolved 300+ customer orders promptly, maintaining high customer satisfaction.</li>
+          <li>Designed 150+ promotional graphics and managed daily social media engagement for 3+ in-house brands.</li>
+          <li>Resolved 300+ customer queries and orders promptly, maintaining a 95% customer satisfaction rate.</li>
         </ul>
       </div>
     </div>
@@ -480,7 +503,7 @@
 <footer class="footer" id="contact">
   <a href="mailto:abuzaryousaf667@gmail.com" class="huge-text magnetic">HIRE ME</a>
   <div class="footer-links">
-    <div class="copyright">© 2026 ABUZAR YOUSAF. READY TO JOIN YOUR TEAM.</div>
+    <div class="copyright">© 2026 ABUZAR YOUSAF · LAHORE, PAKISTAN · READY TO JOIN YOUR TEAM.</div>
     <div class="social-big">
       <a href="mailto:abuzaryousaf667@gmail.com" class="magnetic">Email</a>
       <a href="tel:+923302387965" class="magnetic">Phone</a>
@@ -530,7 +553,26 @@
     { name: "ARY Sportswear", fb: "https://www.facebook.com/arysportswear" },
     { name: "Ethisol", fb: "https://www.facebook.com/Ethisol.uk/", li: "https://www.linkedin.com/company/ethisol/" },
     { name: "UmrahKonnect", li: "https://www.linkedin.com/company/umrahkonnect/" },
-    { name: "Hadaya Living", fb: "https://www.facebook.com/hadayaliving" }
+    { name: "Hadaya Living", fb: "https://www.facebook.com/hadayaliving" },
+    { name: "Battmax", web: "https://battmax.pk", ig: "https://www.instagram.com/batteryconditioner/", fb: "https://www.facebook.com/profile.php?id=61563190703204", yt: "https://www.youtube.com/@BattMaxx", tt: "https://www.tiktok.com/@battmax.pk" },
+    { name: "Leatheo", ig: "https://www.instagram.com/leatheoandco", fb: "https://www.facebook.com/profile.php?id=61591230194452", tt: "https://www.tiktok.com/@leatheoclassic", web: "https://leatheo.com" },
+    { name: "Organic Sens", ig: "https://www.instagram.com/organic.sens/", fb: "https://www.facebook.com/organic.sens/", tt: "https://www.tiktok.com/@organic.sens/", web: "https://organicsens.com" },
+    { name: "OneDish", ig: "https://www.instagram.com/onedish_sweets/", fb: "https://www.facebook.com/profile.php?id=61563935295916", tt: "https://www.tiktok.com/@onedishpakistan", web: "https://onedish.pk" },
+    { name: "BIQ Pharma", ig: "https://www.instagram.com/biqpharma_official", fb: "https://www.facebook.com/biqpharma", tt: "https://www.tiktok.com/@biqpharma.com.pk", web: "https://biqpharma.com.pk" },
+    { name: "SafeT Stores", web: "https://safetstores.com", ig: "https://www.instagram.com/safetstores", fb: "https://www.facebook.com/profile.php?id=61563756875482", tt: "https://www.tiktok.com/@safetstores" },
+    { name: "Mléko", web: "https://mleko.com.pk", ig: "https://www.instagram.com/mleko.pk/", fb: "https://www.facebook.com/profile.php?id=61588579929845" },
+    { name: "BilalMarch7", web: "https://bilalmarth7.pk", ig: "https://www.instagram.com/bilal.marth07/", fb: "https://www.facebook.com/bilalmarth7.pk/", yt: "https://www.youtube.com/@Bilalmarthofficial07", tt: "https://www.tiktok.com/@bilalmarth07" },
+    { name: "Pasha Fabrics", web: "https://www.pashafabrics.com", ig: "https://www.instagram.com/pashafabricsofficial/", fb: "https://www.facebook.com/pashafabrics.official/", yt: "https://www.youtube.com/@pashafabricsofficial" },
+    { name: "Rite Frozen Foods", web: "https://ritefrozenfoods.pk", ig: "https://www.instagram.com/ritefrozenfoods/", fb: "https://www.facebook.com/ritefrozenfoodslahore/" },
+    { name: "Dr. Nazish Affan", web: "https://drnazishaffan.com", ig: "https://www.instagram.com/nourishbydrnazish/", fb: "https://www.facebook.com/drnazshaffan/", yt: "https://www.youtube.com/@drnazishaffan", tt: "https://www.tiktok.com/@dr.nazishaffan" },
+    { name: "Verminator", web: "https://verminatorproducts.com", ig: "https://www.instagram.com/verminatorpakistanltd/", fb: "https://www.facebook.com/Verminatorpakistan", li: "https://www.linkedin.com/company/verminator-pvt-ltd/", tt: "https://www.tiktok.com/@verminatorpakistanltd", yt: "https://www.youtube.com/@VerminatorPakistan" },
+    { name: "Dark Black", web: "https://darkblack.shop", ig: "https://www.instagram.com/darkblack.pk/", fb: "https://www.facebook.com/profile.php?id=61578706981254" },
+    { name: "Crafts by Meesal", web: "https://www.craftbymeesal.com", ig: "https://www.instagram.com/craftsbymeesal", fb: "https://www.facebook.com/p/Crafts-By-Meesal-100092990941702/" },
+    { name: "Florence Heights", web: "https://florenceheights.com", ig: "https://www.instagram.com/florenceheights.pk/", fb: "https://www.facebook.com/florenceheightsislamabad/" },
+    { name: "Layref Real Estate", web: "https://www.layref.com", ig: "https://www.instagram.com/layrefrealestate/", fb: "https://www.facebook.com/p/Layref-Real-Estate-61585409023965/" },
+    { name: "Filmbase Pakistan", web: "https://filmbasepakistan.com", ig: "https://www.instagram.com/filmbasepakistan/", fb: "https://www.facebook.com/filmbasepakistan/" },
+    { name: "Alhikmat Herbs", web: "https://alhikmatherbs.com", ig: "https://www.instagram.com/alhikmatherbs", fb: "https://www.facebook.com/profile.php?id=61576503579259", tt: "https://www.tiktok.com/@alhikmatherbs" },
+    { name: "Shifaam", web: "https://www.shifaam.com", ig: "https://www.instagram.com/officialshifaam/", fb: "https://www.facebook.com/shifaamcares/", li: "https://pk.linkedin.com/company/shifaam", tt: "https://www.tiktok.com/@aslishifaam", yt: "https://www.youtube.com/channel/UCMRSsGAKZSZq8-iHbGPY9fQ" }
   ];
   
   const ytBrands = [
@@ -554,6 +596,7 @@
     if(b.yt) links += `<a href="${b.yt}" target="_blank" class="bg-yt magnetic"><i class="ph ph-youtube-logo"></i></a>`;
     if(b.tt) links += `<a href="${b.tt}" target="_blank" class="bg-tt magnetic"><i class="ph ph-tiktok-logo"></i></a>`;
     if(b.li) links += `<a href="${b.li}" target="_blank" class="bg-li magnetic"><i class="ph ph-linkedin-logo"></i></a>`;
+    if(b.web) links += `<a href="${b.web}" target="_blank" class="bg-web magnetic"><i class="ph ph-globe"></i></a>`;
     bGrid.innerHTML += `<div class="brand-card"><div class="bc-head"><h3>${b.name}</h3></div><div class="bc-socials">${links}</div></div>`;
   });
   ytBrands.forEach(b => {
@@ -576,35 +619,131 @@
   const adCampaigns = [
     {
       platform: "META ADS",
-      client: "E-Commerce Client",
-      shot: "../assets/ads/ad (1).webp",
-      objective: "Increase online sales for a new product launch while keeping cost per purchase low.",
-      strategy: "Ran a structured Meta Ads funnel (Awareness → Retargeting) with 6 creative variations, A/B tested weekly to find winning angles.",
-      metrics: [ {v:"3.4x", l:"ROAS"}, {v:"4.1%", l:"CTR"}, {v:"250K+", l:"Reach"} ]
+      client: "OneDish",
+      shot: "",
+      objective: "Turn Meta ad spend into consistent online dessert orders for OneDish across a large, always-on campaign portfolio.",
+      strategy: "Managed 200+ campaigns over time — mixing CBO scaling, retargeting, and bid-cap structures — continuously pruning underperformers to keep average ROAS high as spend scaled.",
+      metrics: [ {v:"10.86x", l:"Avg. ROAS"}, {v:"₨1.12M", l:"Total Spend"}, {v:"1.4M+", l:"Reach"} ]
     },
     {
       platform: "TIKTOK ADS",
-      client: "Fashion Brand",
-      shot: "../assets/ads/ad (2).webp",
-      objective: "Grow brand awareness and drive traffic to the website among a younger audience.",
-      strategy: "Produced native-style TikTok creatives and Spark Ads using organic top-performing content to boost credibility and lower CPM.",
-      metrics: [ {v:"1.2M", l:"Impressions"}, {v:"$0.18", l:"CPC"}, {v:"38%", l:"Video View Rate"} ]
+      client: "Inoxo",
+      shot: "",
+      objective: "Turn TikTok ad spend into consistent website purchases for the Inoxo brand across multiple campaign structures.",
+      strategy: "Ran parallel organic-style and paid creative campaigns, continuously testing new vs. old creatives to keep CTR up and cost-per-purchase down across 20 live campaigns.",
+      metrics: [ {v:"3.33x", l:"ROAS"}, {v:"299", l:"Purchases"}, {v:"0.59%", l:"CTR"} ]
     },
     {
       platform: "META ADS",
-      client: "Local Service Business",
-      shot: "../assets/ads/ad (3).webp",
-      objective: "Generate qualified leads through Facebook & Instagram lead forms.",
-      strategy: "Built a lead-gen campaign with location targeting, lookalike audiences, and continuous budget optimization across ad sets.",
-      metrics: [ {v:"420+", l:"Leads Generated"}, {v:"$4.90", l:"Cost / Lead"}, {v:"2.8x", l:"ROAS"} ]
+      client: "Layref Real Estate",
+      shot: "",
+      objective: "Generate qualified property leads and build brand awareness for a real estate business on Meta.",
+      strategy: "Ran a lead-form campaign in parallel with a dedicated awareness/reach campaign, splitting budget to balance immediate lead flow with long-term brand recall.",
+      metrics: [ {v:"23", l:"Leads Generated"}, {v:"508K+", l:"Reach"}, {v:"631K+", l:"Impressions"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "SafeT",
+      shot: "",
+      objective: "Scale profitable Meta campaigns for SafeT while keeping cost-per-purchase efficient.",
+      strategy: "Ran a CBO 'Winners Scaling' structure alongside separate ABO and WhatsApp-click campaigns, doubling down budget on the best-performing ad sets.",
+      metrics: [ {v:"4.42x", l:"ROAS"}, {v:"94", l:"Website Purchases"}, {v:"₨90,159", l:"Spend"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "Dark Black",
+      shot: "",
+      objective: "Drive online sock sales for Dark Black through Meta CBO and retargeting campaigns.",
+      strategy: "Tested new static creatives against retargeting-only structures, isolating campaigns by product line (e.g. diabetic socks) to identify what converts best.",
+      metrics: [ {v:"1.68x", l:"ROAS"}, {v:"49", l:"Website Purchases"}, {v:"₨37,977", l:"Spend"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "Leatheo",
+      shot: "",
+      objective: "Drive wallet sales for Leatheo through always-on Meta campaigns.",
+      strategy: "Ran ABO and CBO sale campaigns side-by-side with dedicated creative-testing campaigns to keep the top-performing ad fresh.",
+      metrics: [ {v:"1.41x", l:"Avg. ROAS"}, {v:"₨56,923", l:"Spend"}, {v:"52K+", l:"Reach"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "BIQ Pharma",
+      shot: "",
+      objective: "Support BIQ Pharma's skincare and wellness product line with always-on Meta campaigns.",
+      strategy: "Structured campaigns by funnel stage — core catalog conversions, retargeting for warm audiences, and prospecting for best-sellers — across 50 live campaigns.",
+      metrics: [ {v:"2.00x", l:"Avg. ROAS"}, {v:"₨98,828", l:"Spend"}, {v:"121K+", l:"Reach"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "Crafts by Meesal",
+      shot: "",
+      objective: "Grow online sales for a handmade crafts brand through Meta ads.",
+      strategy: "Combined lookalike audience targeting with retargeting campaigns and fresh video creative to keep ROAS consistent across a lean campaign set.",
+      metrics: [ {v:"3.26x", l:"Avg. ROAS"}, {v:"₨35,730", l:"Spend"}, {v:"37.6K+", l:"Reach"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "Alhikmat Herbs",
+      shot: "",
+      objective: "Drive herbal and wellness product sales for Alhikmat Herbs at scale on Meta.",
+      strategy: "Ran a high volume of always-on campaigns (74 total) mixing CBO, ABO, and dedicated product campaigns to find winning niches.",
+      metrics: [ {v:"1.59x", l:"Avg. ROAS"}, {v:"₨715,554", l:"Spend"}, {v:"693K+", l:"Reach"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "Pasha Fabrics",
+      shot: "",
+      objective: "Drive fabric and textile sales for Pasha Fabrics on Meta, complementing their Google Search presence.",
+      strategy: "Ran a mix of CBO, ABO, and Cost-Per-Goal campaigns across 16 campaigns, with dedicated high-volume and retargeting structures to protect ROAS at scale.",
+      metrics: [ {v:"5.89x", l:"Avg. ROAS"}, {v:"₨288,032", l:"Spend"}, {v:"683K+", l:"Reach"} ]
+    },
+    {
+      platform: "META ADS",
+      client: "Mléko",
+      shot: "",
+      objective: "Generate WhatsApp/Messenger leads for Mléko through Meta message-based campaigns.",
+      strategy: "Ran multiple lead-generation campaigns optimized for messaging conversations, testing retargeting and audience-specific ad sets.",
+      metrics: [ {v:"240", l:"Messaging Conv."}, {v:"₨24.09", l:"Cost / Result"}, {v:"₨5,781", l:"Spend"} ]
     },
     {
       platform: "GOOGLE ADS",
-      client: "E-Commerce Client",
-      shot: "../assets/ads/ad (4).webp",
-      objective: "Capture high-intent search traffic and boost online sales via Google Search & Shopping.",
-      strategy: "Built keyword-targeted Search campaigns with tight ad groups, negative keywords, and a Shopping feed optimization, tracking conversions via GA4.",
-      metrics: [ {v:"5.2x", l:"ROAS"}, {v:"$1.20", l:"Avg. CPC"}, {v:"12%", l:"Conversion Rate"} ]
+      client: "Pasha Fabrics",
+      shot: "",
+      objective: "Grow branded search visibility and clicks on Google Search for pashafabrics.pk.",
+      strategy: "Ran Search campaigns targeting core brand and product keywords, closely tracking auction insights to defend and grow keyword impression share against competitors.",
+      metrics: [ {v:"59.2K", l:"Clicks"}, {v:"16%→63%", l:"Keyword Impr. Share"}, {v:"₨116K", l:"Total Spend"} ]
+    },
+    {
+      platform: "GOOGLE ADS",
+      client: "BilalMarch7",
+      shot: "",
+      objective: "Drive high-value conversions for bilalmarth7.pk through Google Ads.",
+      strategy: "Ran Search / Performance Max campaigns optimized for conversion value, continuously monitoring CTR and cost-per-conversion to protect ROAS.",
+      metrics: [ {v:"~10.1x", l:"ROAS"}, {v:"716", l:"Conversions"}, {v:"13.14%", l:"CTR"} ]
+    },
+    {
+      platform: "GOOGLE ADS",
+      client: "Inoxo",
+      shot: "",
+      objective: "Scale Inoxo's conversions further on Google Ads alongside its TikTok campaigns.",
+      strategy: "Ran a Performance Max + Search mix targeting high-intent keywords and audience signals, adjusting bid strategy and budget as spend scaled to protect ROAS.",
+      metrics: [ {v:"~5.6x", l:"ROAS"}, {v:"1.36K", l:"Conversions"}, {v:"₨456", l:"Cost / Conv."} ]
+    },
+    {
+      platform: "GOOGLE ADS",
+      client: "Homix",
+      shot: "",
+      objective: "Drive cost-efficient conversions at scale for Homix through Google Ads.",
+      strategy: "Ran high-volume Search / Performance Max campaigns optimized for conversions, keeping cost-per-conversion low while scaling click volume.",
+      metrics: [ {v:"829", l:"Conversions"}, {v:"$3.45", l:"Cost / Conv."}, {v:"159K", l:"Clicks"} ]
+    },
+    {
+      platform: "TIKTOK ADS",
+      client: "OneDish",
+      shot: "",
+      objective: "Drive traffic and online orders for OneDish's dessert menu through TikTok campaigns.",
+      strategy: "Ran seasonal and evergreen campaign structures side by side, optimizing bids over time to bring down cost-per-click while scaling reach.",
+      metrics: [ {v:"1.06%", l:"CTR"}, {v:"2,051", l:"Clicks"}, {v:"₨24.68", l:"Avg. CPC"} ]
     }
   ];
   const adsGrid = document.getElementById('ads-grid');
@@ -627,6 +766,15 @@
       </div>`;
   });
 
+  const openLightbox = (src) => {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  };
+  const closeLightbox = () => {
+    document.getElementById('lightbox').classList.remove('active');
+  };
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+
   const generateMedia = (id, count, folder, singular, ext, cls, isVid=false) => {
     const grid = document.getElementById(id);
     let html = '';
@@ -635,7 +783,7 @@
       if(isVid) {
         html += `<div class="media-card video"><video src="${filePath}" controls playsinline preload="metadata"></video></div>`;
       } else {
-        html += `<a href="${filePath}" target="_blank" class="media-card ${cls}"><img src="${filePath}" loading="lazy"></a>`;
+        html += `<div class="media-card ${cls}" onclick="openLightbox('${filePath}')"><img src="${filePath}" loading="lazy"></div>`;
       }
     }
     grid.innerHTML = html;
@@ -736,6 +884,11 @@
     });
   }, 1000);
 </script>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
 
 </body>
 </html>
